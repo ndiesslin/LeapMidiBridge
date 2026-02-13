@@ -24,15 +24,28 @@ cd ~/projects/LeapMidiBridge
 ./venv/bin/python bridge.py
 ```
 
-## How to use for Making Music (Linux)
-The bridge sends data to the system **"Midi Through"** port.
+## How to use with a DAW (FL Studio, Ableton, Logic, etc.)
+The bridge creates a virtual MIDI controller that your music software sees as a physical hardware device.
 
-1. **Open a Synth**: Launch a program like **amsynth** or **ZynAddSubFX**.
-2. **Route MIDI**: Use `aconnect` or a visual tool like **QjackCtl** to connect "Midi Through" to your Synth.
-   - *Example*: `aconnect 14:0 <synth_port_id>`
-3. **Midi Learn**: Right-click any knob in your synth (like "Filter Cutoff") and choose "Midi Learn". Move your hand up and down—the knob will now follow your hand!
+### On the machine running the bridge:
+1. **Start the bridge**: Run `python bridge.py`.
+2. **Open your DAW**: Launch FL Studio, Ableton Live, Logic Pro, etc.
+3. **Enable the Input**:
+   - Go to **MIDI Settings / Preferences**.
+   - Look for **"Leap Motion Bridge"** (Mac) or **"Midi Through"** (Linux).
+   - Click **Enable**.
+4. **Map a Parameter (MIDI Learn)**:
+   - **FL Studio**: Right-click any knob (e.g., Cutoff) -> Select **"Link to controller..."** -> Move your hand.
+   - **Ableton**: Press `Ctrl+M` -> Click a knob -> Move your hand -> Press `Ctrl+M` again.
+   - **Logic**: Press `Cmd+L` -> Move a screen knob -> Move your hand.
 
-## How to use for Making Music (Mac)
-1. Run the script as usual. It will create a virtual port called **"Leap Motion Bridge"**.
-2. Open **Ableton, Logic, or GarageBand**.
-3. The port will appear in your MIDI Preferences automatically.
+### Control Mappings
+- **Move Hand Up/Down**: Controls mapped parameters via **CC 10**.
+- **Move Hand Left/Right**: Controls mapped parameters via **CC 11**.
+- **Pinch Fingers**: Controls mapped parameters via **CC 1** (Mod Wheel).
+
+## Use Case: Cross-Machine Control
+If your Leap Motion is plugged into a Linux machine but your DAW is on a different Windows/Mac computer:
+1. Use a Network MIDI tool like **rtpMIDI** (Windows) or built-in **Network MIDI** (macOS).
+2. Route the "Midi Through" port on Linux to the Network MIDI session.
+3. Your DAW will receive the hand movements over your local network!
